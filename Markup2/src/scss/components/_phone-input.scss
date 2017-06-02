@@ -1,0 +1,23 @@
+$phone-input: ( border: map-get($colors, red));
+.block-phone {
+    @extend .v-align;
+    position: relative;
+    display: inline-flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 0.8rem 0 1.2rem;
+}
+
+input[type="text"],
+input[type="tel"] {
+    font-size: 1.2em;
+    padding: .3em .1em .3em .15em;
+    border: 2px solid map-get($colors, red);
+    border-radius: .4em;
+    outline: none;
+    color: map-get($colors, black);
+}
+
+.phone-input-addon {
+    font-size: 2.3rem;
+}

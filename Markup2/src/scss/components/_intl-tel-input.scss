@@ -1,0 +1,25 @@
+.intl-tel-input {
+    input[type="tel"],
+    input[type="tel"]:focus {
+        outline: none;
+        border-color: map-get($colors, red);
+    }
+    .error {
+        border-color: red;
+    }
+}
+
+#valid-msg,
+#error-msg {
+    position: relative;
+    width: 100%;
+    padding: 0.7em 0 0;
+}
+
+#error-msg {
+    color: red;
+}
+
+#valid-msg {
+    color: green;
+}

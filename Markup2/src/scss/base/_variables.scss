@@ -1,0 +1,37 @@
+// Colors
+$colors: (
+  blue: #04ace4,
+  white: #fff,
+  black: #000,
+  green: #7ec45a,
+  red: #ef4124,
+  gray: #a3a6a6
+);
+
+// Forms
+$forms: (
+  'form-element-padding': unquote("0.4em 0.7em"),
+  'form-element-border-color': #999,
+  'form-element-focus-border-color': #000,
+  'placeholder-color': #999
+);
+
+// Breakpoints for include media
+$breakpoints: (
+  'xs-phone': 320px,
+  'phone': 480px,
+  'tablet': 768px,
+  'desktop': 1024px,
+  'widescreen': 1200px
+);
+
+// Keywords
+$media-expressions: (
+  'screen': 'screen',
+  'print': 'print',
+  'handheld': 'handheld',
+  'landscape': '(orientation: landscape)',
+  'portrait': '(orientation: portrait)',
+  'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+  'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+);

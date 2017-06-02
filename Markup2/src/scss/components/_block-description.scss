@@ -1,0 +1,16 @@
+$blockDescription: (
+	background: map-get($colors, blue),
+	color: map-get($colors, white)
+);
+
+.block-description{
+	font-size: 1.2em;
+    line-height: 1.2;
+	background: map-get($blockDescription, background);
+	color: map-get($blockDescription, color);
+	padding: 0.6em 0.8em;
+    margin: 0 0 3.2rem;
+    &.block-description-no-space{
+    	margin-bottom: 0;
+    }
+}

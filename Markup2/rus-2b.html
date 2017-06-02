@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Title</title>
+    <link media="all" rel="stylesheet" href="bower/normalize-css/normalize.css">
+    <link rel="stylesheet" href="bower/intl-tel-input/build/css/demo.css">
+    <link rel="stylesheet" href="bower/intl-tel-input/build/css/intlTelInput.css">
+    <link media="all" rel="stylesheet" href="build/css/style.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="login-form">
+            <div class="number">Ваш номер: <span id="yourNumber"><?php echo $phone; ?></span></div>
+            <div class="block-cell">
+                <img src="build/images/phone.svg" alt="img-description">
+                <div class="overlay">
+                    <span>Входящий звонок</span>
+                    <div class="input-wrapper">
+                        <span>+ 7(925)688-</span><input type="text" class="last-digits"/>
+                    </div>
+                </div>
+            </div>  
+            <div class="block-description block-description-no-space">
+                Введите последние 4 цифры <br>
+                номера с которого мы вам звоним
+            </div>
+            <div class="block-recall">Повторить через <span id="time"></span> секунд</div>
+            <div class="block-login">
+                <button class="btn">вход</button>
+                <a href="#" class="link-cancel">Отмена</a>
+            </div>
+            <a href="#">
+                <strong class="logo">
+                    <img src="build/images/logo.svg" alt="loginbycall">
+                </strong>
+            </a>
+        </div>
+    </div>
+    <script src="bower/jquery/dist/jquery.min.js"></script>
+    <script src="bower/intl-tel-input/build/js/utils.js"></script>
+    <script src="bower/intl-tel-input/build/js/intlTelInput.min.js"></script>
+    <script src="build/js/app.js"></script>
+</body>
+
+</html>

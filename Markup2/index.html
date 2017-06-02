@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login By Call</title>
+    <link media="all" rel="stylesheet" href="build/css/vendor.css">
+    <link media="all" rel="stylesheet" href="build/css/style.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="login-form" id="step-1">
+            <ul class="top-links">
+                <li><a href="#">Вход</a></li>
+                <li><a href="#">Регистрация</a></li>
+            </ul>
+            <form id="getRecall">
+                <div>Ваш номер</div>
+                <div class="block-phone">
+                    <!-- <span class="phone-input-addon">+</span><input type="text" class="phone-input phone-input-rus"/> -->
+                    <input type="tel" id="phone" name="txt_phone" autofocus>
+                    <span id="valid-msg" class="hide">✓ Valid</span>
+                    <span id="error-msg" class="hide">Invalid number</span>
+                </div>
+                <div class="block-description">
+	Мы позвоним вам со случайного номера, запомните последние 4 цифры из него
+                </div>
+                <button type="submit" class="btn">вперед</button>
+            </form>
+            <a href="#">
+                <strong class="logo">
+                    <img src="build/images/logo.svg" alt="loginbycall">
+                </strong>
+            </a>
+        </div>
+        <div class="login-form" id="step-2">
+            <div class="number">Ваш номер: <span id="yourNumber"></span></div>
+            <div class="block-cell">
+                <img src="build/images/phone.svg" alt="img-description">
+                <div class="overlay">
+                    <span>Входящий звонок</span>
+                    <div class="input-wrapper">
+                        <span>+ 7(925)688-</span><input type="text" class="last-digits" maxlength="4" autofocus>
+                    </div>
+                </div>
+            </div>  
+            <div class="block-description block-description-no-space">
+                Введите последние 4 цифры <br>
+                номера с которого мы вам звоним
+            </div>
+            <div class="block-recall">
+                <a href="#" class="btn-recall hide">Повторить звонок</a>
+                <div class="content">
+                    Повторить через <span class="timer" id="time" data-seconds-left=60></span> секунд
+                </div>
+            </div>
+            <div class="block-login">
+                <button class="btn">вход</button>
+                <a href="#" class="link-cancel">Отмена</a>
+            </div>
+            <a href="#">
+                <strong class="logo">
+                    <img src="build/images/logo.svg" alt="loginbycall">
+                </strong>
+            </a>
+        </div>
+    </div>
+    <script src="build/js/vendor.js"></script>
+    <script src="build/js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+html {
+	box-sizing: border-box;
+  font-size: 62.5%; 
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+* {max-height: 1000000px;}
+
+body {
+  @include font-smoothing(on);
+  @include rem-font-size(24px);
+}
+
+// adaptive images
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// google map fix
+.gm-style img {max-width: none}
+
+// hide tel links on desktop
+@media only screen and (min-width:1025px) {
+    a[href^=tel],a[href^=skype], a[href^=sms] {
+    cursor:default;
+    pointer-events:none;
+  }
+}
+
+ul{
+  @extend %listreset;
+}
+
+img{
+  display: block;
+  margin: 0 auto;
+}

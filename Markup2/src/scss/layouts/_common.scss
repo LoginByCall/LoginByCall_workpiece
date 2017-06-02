@@ -1,0 +1,94 @@
+html, 
+body,
+#wrapper{
+    height: 100%;
+}
+
+#wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.login-form {
+    font-size: 1.5rem;
+    max-width: 26.6em;
+    margin: 0 auto;
+    text-align: center;
+    color: map-get($colors, blue);
+    .top-links {
+        margin: 0 0 4.2rem;
+    }
+    .btn {
+        margin: 0 0 1.5rem;
+    }
+    .logo {
+        display: block;
+        img {
+            width: 6.5em;
+        }
+    }
+    .number {
+        font-size: 1em;
+        margin: .2em 0 .75em;
+        color: map-get($colors, gray);
+    }
+    .block-cell {
+        font-size: 1em;
+        position: relative;
+        img {
+            width: 18.5em;
+        }
+        .overlay {
+            position: absolute;
+            top: auto;
+            right: 0;
+            bottom: 1em;
+            left: 0;
+        }
+        .input-wrapper {
+            font-size: 1.4em;
+            margin: .5em 0 0;
+        }
+        .last-digits {
+            font-size: 1em;
+            width: 3.5em;
+            letter-spacing: .09em;
+            padding: .1em .1em .1em .15em;
+        }
+    }
+    .block-recall {
+        font-size: .8em;
+        margin: .4em 0 1em;
+        color: map-get($colors, gray);
+        min-height: 14px;
+    }
+    .block-login {
+        position: relative;
+        max-width: 18em;
+        margin: 0 auto 1em;
+        .btn {
+            margin: 0;
+            padding: .4em 2em;
+        }
+        .link-cancel {
+            font-size: .8em;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            text-decoration: none;
+            color: map-get($colors, black);
+            border-bottom: .1rem solid;
+        }
+    }
+}
+
+#step-2 {
+    display: none;
+}
+
+.hide {
+    display: none;
+}

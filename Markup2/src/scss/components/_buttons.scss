@@ -1,0 +1,24 @@
+$btn:(
+	background: map-get($colors, green),
+	activeBg: darken(map-get($colors, green), 10%),
+	color: map-get($colors, white),
+	border: #18a7da
+);
+
+.btn {
+	@include animate (background);
+    font-size: 1.2em;
+    line-height: 1;
+    display: inline-block;
+    padding: 0.7rem 2.6rem;
+    text-transform: uppercase;
+    color: map-get($btn, color);
+    border: .15em solid map-get($btn, border);
+    border-radius: 100px;
+    background: map-get($btn, background);
+    outline: none;
+    text-decoration: none;
+    &:hover{
+    	background: map-get($btn, activeBg);
+    }
+}
