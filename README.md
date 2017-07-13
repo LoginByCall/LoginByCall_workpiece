@@ -1,28 +1,52 @@
-<<<<<<< HEAD
-﻿# Авторизация LoginByCall
+﻿# LoginByCall - easy sign in & sign up service
 
-LoginByCall предоставляет 2 группы методов:
-* методы для регистрации и управления пользователем;
-* методы для совершения звонков.
+##### Russian: https://github.com/LoginByCall/LoginByCall_workpiece/blob/master/README2.md
 
-Все методы вызываются посредством универсального протокола. Некоторые методы требуют наличия цифровой подписи.
-API находится по адресу: [http://internal.loginbycall.net/callapi/v2.0/](http://internal.loginbycall.net/callapi/v2.0/)
+## About LoginByCall
+* `EASY`: LoginByCall service allows you safely and simply sign up and sign in users of your website.
+* `GROWTH OF CONVERSION`: LoginByCall service reliably proved the increase in conversion compared to the usual forms of user registration.
+* `PASSWORDS ARE NOT NEEDED`: Users do not need to invent or remember passwords, and their data is securely protected.
+* `RELEVANT CONTACTS`: You always have relevant contact information for your users.
+* `WOW-EFFECT`: LoginByCall service is easy to use and will increase memorability of your site.
 
-## Универсальный протокол
+### How it works:
+- To sign in / sign up the user inputs his phone number on the website.
+- Using the LoginByCall service the site makes a voice call from a randomly selected number to the user's number.
+- The user must enter the last N-digits of the incoming number to confirm the signing in / signing up.
+```
+LoginByCall demo: http://tiptopcar.ru/notyet.twig
 
-Для удобства пользователя методы API можно вызывать любым из нескольких способов. Все методы вызываются по URL `http://internal.loginbycall.net/callapi/v2.0/<имя метода>`, например `http://internal.loginbycall.net/callapi/v2.0/register`. Порядок следования параметров неважен. Способы перечислены ниже.
+Note: although the LoginByCall service is reliable, we recommend leaving it primary on your site,
+but not the only way to authenticate users.
+```
 
-### HTTP GET с параметрами
+### Definitions
+* `Client` - a website that uses the simple login service LoginByCall to authorize and / or register its users.
+* `User` - visitor of the Client's website, authorizing or registering with the LoginByCall service
 
-Передача параметров производится внутри URL query string запросом HTTP GET.
+### LoginByCall provides 2 groups of methods:
+* methods for registering and managing the account to LoginByCall api;
+* methods for signing in / signing up users on the Client's site (making calls).
+
+All methods are called by means of a universal protocol. Some methods require a digital signature.
+API address: [https://internal.loginbycall.net/callapi/v2.0/](https://internal.loginbycall.net/callapi/v2.0/)
+
+## Universal protocol
+
+All methods are called by URL `https://internal.loginbycall.net/callapi/v2.0/<method name>`, e.g. `https://internal.loginbycall.net/callapi/v2.0/register`. The sequence of parameters does not matter.
+You can call API methods by different ways. The methods are listed below.
+
+### HTTP GET with parameters
+
+Parameters are passed in the URL query string by an HTTP GET request.
 ```
 GET /callapi/v2.0/call?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&msisdn=70000000000 HTTP/1.1
 Host: internal.loginbycall.net
 ```
 
-### HTTP POST формы
+### HTTP POST forms
 
-Передача параметров производится HTTP POST формы (кодировка application/x-www-form-urlencoded).
+Parameters are passed to the HTTP POST form (application/x-www-form-urlencoded encoding).
 ```
 POST /callapi/v2.0/call HTTP/1.1
 Host: internal.loginbycall.net
@@ -34,7 +58,7 @@ call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&msisdn=70000000000
 
 ### REST style HTTP GET
 
-Передача параметров производится адресом внутри URL.
+Parameters are passed by the address inside the URL.
 ```
 GET /callapi/v2.0/call/call-api-id/npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6/msisdn/70000000000 HTTP/1.1
 Host: internal.loginbycall.net
@@ -42,7 +66,7 @@ Host: internal.loginbycall.net
 
 ### HTTP POST multipart
 
-Передача параметров производится HTTP POST формы (кодировка multipart/form-data).
+Parameters are passed to the HTTP POST form (multipart/form-data encoding).
 ```
 POST /callapi/v2.0/call HTTP/1.1
 Host: internal.loginbycall.net
@@ -60,10 +84,10 @@ Content-Disposition: form-data; name="msisdn"
 ------WebKitFormBoundaryP7bZDAwOQaxMGJ95--
 ```
 
-### Специальный параметр params
+### The special parameter params
 
-Параметр `params` имеет специальное значение. В нем можно передавать все параметры метода в JSON кодировке. Этот специальный параметр применим к любым протоколам выше.
-Примеры:
+`params` parameter has a special role. They can pass all parameters of the method in the JSON encoding. This special parameter applies to any of the methods above.
+Examples:
 
 ```
 GET /callapi/v2.0/call?params=%7B%22call-api-id%22:%22npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6%22,%22msisdn%22:%2270000000000%22%7D HTTP/1.1
@@ -92,18 +116,18 @@ Content-Disposition: form-data; name="params"
 ------WebKitFormBoundaryP7bZDAwOQaxMGJ95--
 ```
 
-### Цифровая подпись
+### Digital signature
 
-Некоторые методы требуют наличия цифровой подписи.
+Some methods require a digital signature.
 
-** Внимание!**
-Администратор сервера может отключить проверку цифровой подписи для конкретного пользователя, в таком случае все параметры цифровой подписи игнорируются и могут не передаваться.
+** Attention!**
+The LoginByCall administrator can disable the digital signature verification for a specific LoginByCall api account, in which case all the parameters of the digital signature are ignored and may not be transmitted.
 
-Каждому пользователю присваиваются 2 идентификатора: идентификатор `call-api-id` и секретный ключ `api-key`. Цифровая подпись запросов осуществляется секретным ключем по алгоритму `SHA512-HMAC`. Хэшируюется сначала имя метода, а затем все входные параметры функции в кодировке `utf-8` (кроме параметров имеющих пустые значения). Каждый элемент хэша разделяется символом с кодом `0x00` - `'\0'`. Порядок следования параметров в хэше перечислен в описании каждого метода. Цифровая подпись передается либо в дополнительном параметре `signature` либо в HTTP header `Signature` и кодируется в HEX кодировке.
+Each LoginByCall client is assigned 2 identifiers: the identifier `call-api-id` and the secret key` api-key`. Digital signature of requests is carried out with the help of a secret key using the `SHA512-HMAC` algorithm. First, the method name is hashed, and then all the input parameters of the function are encoded in `utf-8` (except for parameters that have null values). Each hash element is separated by a symbol with the code `0x00` -` '\ 0'`. The order of the parameters in the hash is given in the description of each method. The digital signature is passed either in the additional parameter `signature` or in the HTTP header` Signature` and is encoded in HEX encoding.
 
-Также для обеспечения уникальности цифровой подписи используются 2 дополнительных параметра: метка времени в секундах UNIX time `timestamp` и случайное число `nonce`. Пара `timestamp + nonce` должна быть уникальна для каждого клиента, также сервер проверяет разницу между параметром `timestamp` и текущим временем, они не должна превышать 1 сутки. Эти параметры передаются любым из стандартных способов, цифровая подпись включает в себя и эти параметры.
+To ensure the uniqueness of the digital signature, two additional parameters are used: the time stamp in seconds UNIX time `timestamp` and the random number` nonce`. The pair `timestamp + nonce` must be unique for each client, also LoginByCall checks the difference between the` timestamp` parameter and the current time, they should not exceed 24 hours. These parameters are transmitted in any of the standard ways, the digital signature includes these parameters as well.
 
-Пример подсчета цифровой подписи на JavaScript.
+An example of using a digital signature in JavaScript.
 
 ```javascript
 var crypto = require('crypto');
@@ -139,17 +163,17 @@ var query = addSignature('call-status', {call: call_id}, SIGN_ORDER_STATUS);
 
 ```
 
-Пример цифровой подписи.
+An example of a digital signature.
 
 ```
 GET /callapi/v2.0/call?msisdn=70000000000&call-api-id=EeaBxJlPvdARz9RBpRLSn9gJo3oeMinkrA1G2Xm8&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779 HTTP/1.1
 ```
 
-## Ответы сервера
+## Server replies
 
-На любые запросы сервер присылает ответ в JSON кодировке. Если в ответе присутствует элемент `error` значит произошла ошибка, иначе это успешный ответ.
+For any requests, the LoginByCall service sends a response in the JSON encoding. If the response contains the element `error`, then an error occurred, otherwise it is a successful response.
 
-Пример успешного ответа.
+An example of a successful response.
 
 ```
 HTTP/1.1 200 OK
@@ -168,7 +192,7 @@ Transfer-Encoding: chunked
 {"call":"PR3MaG1orzx9GBXNeoGtEKamYWG17FW6bZ4kNXK5","mask":"70000000000","codelen":4,"repeat_timeout":30}
 ```
 
-Пример ответа с ошибкой. Список кодов ошибок приведен в конце документа.
+An example of an error response. See the list of error codes at the end of the document.
 
 ```
 HTTP/1.1 200 OK
@@ -192,227 +216,279 @@ Vary: Accept-Encoding
 }
 ```
 
-## Методы регистрации и управления пользователем
+## Methods of registration and account management LoginByCall api
 
-### Регистрация нового пользователя `register`
+### Registration of a new account `register`
 
-Метод не требует цифровой подписи.
+The method does not require a digital signature.
 
-##### Параметры запроса
-- `domain` - домен, на котором будет использоваться API. Должен быть именем домена, без протокола и пути (например `example.com`). Должен принадлежать пользователю. Обязательный параметр.
-- `admin_email` - электронная почта администратора. Обязательный параметр.
-- `admin_phone` - номер телефона администратора. Необязательный параметр.
-- `verify_url` - URL по которому будет производиться проверка принадлежности домена. Необязательный параметр. По умолчанию `'http://' + domain + '/lbc-' + call-api-id + '.html'`
+##### Query Parameters
+- `domain` - the domain on which this API will be used. Must be without protocol and path (eg `example.com`). It is a mandatory parameter.
+- `admin_email` - E-mail client administrator. A mandatory parameter.
+- `admin_phone` - Customer's telephone number. Optional parameter.
+- `verify_url` - the URL by which the domain ownership will be checked. Optional parameter. Default value contains `'http://' + domain + '/lbc-' + call-api-id + '.html'`
+- `balance_notify_limit` - the minimum balance of the client in the LoginByCall service in 1/10000 USD, at which a notification will be sent to the e-mail address `admin_email` with a request to refill the balance. Optional parameter. The default is `10000` which means 1 USD. You can pass `-1` - then notifications will not be sent. Notifications with decreasing balance are sent once a day at 03:00 Moscow time (GMT +3).
 
-##### Параметры ответа
-- `call_api_id` - идентификатор пользователя.
-- `verify_url` - URL для проверки принадлежности домена. Возвращается либо тот, который передал пользователь, либо сгенерированный автоматически.
+##### Response parameters
+- `call_api_id` - the identifier of the LoginByCall api account.
+- `verify_url` - URL to verify ownership of the domain. The response returns the address from the request or is created by the LoginByCall service automatically.
 
-Новый пользователь регистрируется со статусом "неактивный". После регистрации сервер высылает секретный ключ `api-key` на указанную электронную почту. Затем каждые 10 минут производится HTTP GET запрос по указанному `verify_url`. По данному URL должен быть размещен файл, содержащий текст - идентификатор пользователя `call-api-id`. Если проверка домена прошла успешно - пользователь активируется и может использовать остальное API. Неактивные пользователи автоматически удаляются через сутки после регистрации. Администратор может активировать пользователя без подтверждения в ручном режиме.
+The new LoginByCall client's account is registered with the status "inactive". After registration, the LoginByCall service sends the secret key `api-key` to the administrator's email. Then, every 10 minutes, an HTTP GET request is made for the specified `verify_url`. A file containing the text - the user’s ID of `call-api-id` should be placed on this URL. If the domain check is successful, the LoginByCall client`s account is activated and you can use the rest of the API methods. Accounts that have not been activated are deleted within 24 hours.
 
-##### Примеры запроса
+##### Request examples
 ```
-http://internal.loginbycall.net/callapi/v2.0/register?domain=tiptopcar.ru&admin_email=admin@tiptopcar.ru&verify_url=http://tiptopcar.ru/lbc_verify.html
+https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com&verify_url=http://example.com/lbc_verify.html&balance_notify_limit=5000
 
-http://internal.loginbycall.net/callapi/v2.0/register?domain=tiptopcar.ru&admin_email=admin@tiptopcar.ru
-```
-
-##### Примеры ответа
-```
-{"call_api_id":"kJpDl7YnbX32Mn83w9puEV6OVJPQOsWL0z2dMwgm","verify_url":"http://tiptopcar.ru/lbc_verify.html"}
-
-{"call_api_id":"yezoZpgG0jQ8EkqY4KZHZY23WMXegUxgrkjPMwWV","verify_url":"http://tiptopcar.ru/lbc-yezoZpgG0jQ8EkqY4KZHZY23WMXegUxgrkjPMwWV.html"}
+https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com
 ```
 
-### Статус пользователя `status`
-
-Метод не требует цифровой подписи.
-
-##### Параметры запроса
-- `call-api-id` - идентификатор пользователя.
-
-##### Параметры ответа
-- `activated` - 1 (аккаунт активирован) или 0 (аккаунт не активирован).
-- `blocked` - 1 (аккаунт заблокирован) или 0 (аккаунт не заблокирован).
-- `allow_unsecure_calls` - 1 или 0 - разрешил или нет администратор не подписывать цифровой подписью запросы.
-
-##### Примеры запроса
+##### Response examples
 ```
-http://internal.loginbycall.net/callapi/v2.0/status?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk
+{"call_api_id":"kJpDl7YnbX32Mn83w9puEV6OVJPQOsWL0z2dMwgm","verify_url":"http://example.com/lbc_verify.html"}
+
+{"call_api_id":"yezoZpgG0jQ8EkqY4KZHZY23WMXegUxgrkjPMwWV","verify_url":"http://example.com/lbc-yezoZpgG0jQ8EkqY4KZHZY23WMXegUxgrkjPMwWV.html"}
 ```
 
-##### Примеры ответа
+### Status of the user `status`
+
+The method does not require a digital signature.
+
+##### Query Parameters
+- `call-api-id` - the customer ID in the LoginByCall service.
+
+##### Response parameters
+- `activated` - 1 (account activated) or 0 (account not activated).
+- `blocked` - 1 (account suspended) or 0 (account not locked).
+- `allow_unsecure_calls` - 1 or 0 - whether the LoginByCall administrator has authorized or not to digitally sign requests.
+
+##### Request examples
+```
+https://internal.loginbycall.net/callapi/v2.0/status?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk
+```
+
+##### Response examples
 ```
 {"activated":0,"blocked":0,"allow_unsecure_calls":0}
 ```
+### Client settings `options`
 
-### Баланс пользователя `balance`
+The method requires a digital signature. The order of the parameters for the signature: `call-api-id, timestamp, nonce, balance_notify_limit`.
 
-Метод требует цифровую подпись. Порядок параметров для подписи: `call-api-id, timestamp, nonce`.
+##### Query Parameters
+- `call-api-id` - the customer ID in the LoginByCall service.
+- `balance_notify_limit` - Minimum balance of the client, at which the email message `admin_email` will be sent a message asking to refill the balance. You can send `-1` - then messages will not be sent. Messages with decreasing balance are sent once a day at 03:00 Moscow time (GMT +3).
 
-##### Параметры запроса
-- `call-api-id` - идентификатор пользователя.
+##### Response parameters
+- If successful, the method returns an empty response.
 
-##### Параметры ответа
-- `balance` - сумма всех платежей пользователя в копейках.
-- `consumed` - сумма всех расходов пользователя в копейках.
-- `last_payments` - массив из 5 последних платежей пользователя. Каждый элемент массива это объект с двумя свойствами `value` - сумма платежа и `created` - UNIX time даты платежа.
-
-Чтобы узнать баланс пользователя, нужно от суммы платежей отнять сумму расходов `balance - consumed`.
-
-##### Примеры запроса
+##### Request examples
 ```
-http://internal.loginbycall.net/callapi/v2.0/balance?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://internal.loginbycall.net/callapi/v2.0/options?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&balance_notify_limit=-1&&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
-##### Примеры ответа
+### Balance of the client `balance`
+
+The method requires a digital signature. The order of the parameters for the signature: `call-api-id, timestamp, nonce`.
+
+##### Query Parameters
+- `call-api-id` - the customer ID in the LoginByCall service.
+
+##### Response parameters
+- `balance` - the sum of all customer payments in 1/10000 USD.
+- `consumed` - the amount of all customer expenses in 1/10000 USD
+- `balance_notify_limit` - the established minimum balance in 1/10000 USD at which messages will be sent to the administrator. For more details, see the `register` method.
+- `last_payments` - an array of the last 5 customer payments. Each element of the array is an object with `value` ()the payment amount) and` created` (the UNIX time of the payment date).
+
+The balance of the customer is the amount of payments subtract the amount of expenses: `current_balance = balance - consumed`.
+
+##### Request examples
 ```
-{"balance":100000000,"consumed":40,"last_payments":[{"value":100000000,"created":1492283925}]}
-```
-
-## Методы для совершения звонков
-
-### Совершить звонок через LoginByCall `call`
-
-Метод требует цифровую подпись. Порядок параметров для подписи: `call-api-id, timestamp, nonce, msisdn`.
-
-##### Параметры запроса
-- `call-api-id` - идентификатор пользователя.
-- `msisdn` - номер телефона для авторизации, по этому номеру будет совершен звонок (начиная с 7, без плюса).
-
-##### Параметры ответа
-- `call` - идентификатор звонка.
-- `mask` - номер, с которого будет совершен звонок.
-- `codelen` - количество последних случайных цифр в номере, которые нужно запросить у авторизуемого пользователя.
-- `repeat_timeout` - время в секундах, после которого можно будет повторить звонок на тот-же номер.
-
-До истечения времени `repeat_timeout` все повторные запросы `call` на тот-же номер `msisdn` будут отвергаться. Пример параметра `codelen` - если `mask = "79256880636"` и `codelen = 4` то надо проверить, чтобы авторизуемый пользователь ввел цифры `0636`, а цифры `7925688` можно показать с текстом `Ожидайте звонка с номера 7925688XXXX`. Метод может вернуть ошибку сразу, если метод вернул успешный ответ - значит звонок поставлен в очередь. Для проверки статуса звонка надо использовать метод `call-status`.
-
-##### Примеры запроса
-```
-http://internal.loginbycall.net/callapi/v2.0/call?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&msisdn=70000000000&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://internal.loginbycall.net/callapi/v2.0/balance?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
-##### Примеры ответа
+##### Response examples
+```json
+{
+"balance":100000000,
+"consumed":40,
+"balance_notify_limit":2000,
+"last_payments":[{"value":100000000,"created":1492283925}]
+}
+```
+
+### Refill of the client's balance `pay`
+
+The method requires a digital signature. The order of the parameters for the signature: `call-api-id, timestamp, nonce, amount`.
+
+##### Query Parameters
+- `call-api-id` - the customer ID in the LoginByCall service.
+- `amount` - the amount for replenishment, in 1/10000 USD.
+- `locale` - preferred language for the form of payment is `en` or` en`. Optional parameter.
+- `success_url` - URL, for redirect from the form of payment after a successful payment. Optional parameter.
+- `fail_url` - URL, to redirect from the form of payment after a failed payment. Optional parameter.
+- `return_url` - URL, for redirect from the form of payment in case of a voluntary refusal to pay. Optional parameter.
+
+##### Response parameters
+- `url` - the address of the payment form.
+- `query` - the object for creating a payment form `{"param": "value"}`. For an example of the form of payment, see below, in the examples of the answer.
+- `method` - `POST` or `GET` - http method for calling a payment system.
+
+Optional parameters `success_url, fail_url, return_url` may not be supported by the payment system, and may also be disabled by the LoginByCall administrator.
+
+##### Request examples (Amount 5 USD)
+```
+https://internal.loginbycall.net/callapi/v2.0/pay?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&amount=50000&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+```
+
+##### Response examples
+```json
+{
+    "url": "https://www.payanyway.ru/assistant.htm",
+    "query": {
+        "MNT_ID":"13042359",
+        "MNT_AMOUNT":"5.00",
+        "MNT_TRANSACTION_ID":"29009361577",
+        "MNT_SUBSCRIBER_ID":"example.com",
+        "MNT_CURRENCY_CODE":"USD",
+        "MNT_SIGNATURE":"781560c1567a0b675dc385aaf5ea785d"
+    },
+    "method": "POST"
+}
+```
+
+For this answer, you need to build and run the following form of payment.
+```html
+<form method="post" action="https://www.payanyway.ru/assistant.htm">
+    <input type="hidden" name="MNT_ID" value="13042359">
+    <input type="hidden" name="MNT_AMOUNT" value="5.00">
+    <input type="hidden" name="MNT_TRANSACTION_ID" value="29009361577">
+    <input type="hidden" name="MNT_SUBSCRIBER_ID" value="example.com">
+    <input type="hidden" name="MNT_CURRENCY_CODE" value="USD">
+    <input type="hidden" name="MNT_SIGNATURE" value="781560c1567a0b675dc385aaf5ea785d">
+    <input type="submit" value="PAY">
+</form>
+```
+
+## Methods for signing in and signing up users (making calls)
+
+### Make a call via LoginByCall `call`
+
+The method requires a digital signature. The order of the parameters for the signature: `call-api-id, timestamp, nonce, msisdn, ip_address`.
+
+##### Query Parameters
+- `call-api-id` - the customer ID in the LoginByCall service.
+- `msisdn` - Phone number for user authorization in E.164 format (international phone number starting with country code without "+"). By this number, the LoginByCall service will make an outgoing call.
+- `ip_address` - IP address of the user. An optional parameter, preferably transmitted. It is used to calculate the timeout.
+
+##### Response parameters
+- `call` - call identifier.
+- `mask` - phone from which the call will be made.
+- `codelen` - the number of last random digits in the number that needs to be requested from the user.
+- `repeat_timeout` - time in seconds, after which you can repeat the call to the same number.
+
+Until the expiration of the time `repeat_timeout`, all repeated requests` call` to the same number `msisdn + ip_address` will be rejected. Repeated calls to the same number `msisdn + ip_address` within a minute are not charged. Example of the parameter `codelen` - if` mask = "79256880636" `and` codelen = 4`, then we need to check that the authorized user entered the digits `0636`, and the digits` 7925688` can be shown with the text `Waiting for the call from the number 7925688 [____ ] `. The method can return an error at once, if the method returned a successful response - then the call is queued. To check the status of the call, you must use the `call-status` method.
+
+##### Request examples
+```
+https://internal.loginbycall.net/callapi/v2.0/call?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&msisdn=70000000000&ip_address=80.80.88.88&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+```
+
+##### Response examples
 ```
 {"call":"ONP5qZde0pn43nDdRgmcNaEBlqoKyix3vK487LEQ","mask":"79256880636","codelen":4,"repeat_timeout":10}
 ```
 
-### Проверить статус звонка `call-status`
+### Check the status of the call `call-status`
 
-Метод требует цифровую подпись. Порядок параметров для подписи: `call-api-id, timestamp, nonce, call`.
+The method requires a digital signature. The order of the parameters for the signature: `call-api-id, timestamp, nonce, call`.
 
-##### Параметры запроса
-- `call` - идентификатор звонка.
+##### Query Parameters
+- `call` - call identifier.
 
-##### Параметры ответа
-- `status` - статус звонка (число).
-- `status_desc` - описание статуса звонка.
-- `last_error` - текст ошибки, заполнено только если статус ошибочный.
+##### Response parameters
+- `status` - call status (number).
+- `status_desc` - description of the status of the call.
+- `last_error` - error text, only filled if the status is incorrect.
 
 ##### Статусы звонка
-|`status`|`status_desc`|Описание|
+|`status`|`status_desc`|Description|
 |--------|-------------|--------|
-|**1**|queued|Звонок находится в очереди.|
-|**2**|dialing|Звонок совершается.|
-|**4**|answered|Авторизуемый пользователь поднял трубку.|
-|**8**|busy|Авторизуемый пользователь сбросил вызов, либо у него было занято.|
-|**16**|notanswered|Авторизуемый пользователь не поднимал трубку и не сбрасывал. Звонок был завершен по истечении таймаута|
-|**32**|error|Произошла ошибка при совершении звонка. В поле `last_error` находится описание ошибки.|
+|**1**|queued|The call is in the queue.|
+|**2**|dialing|Call in progress.|
+|**4**|answered|The user picked up the phone.|
+|**8**|busy|The user dropped the call or was busy.|
+|**16**|notanswered|The user did not pick up the phone or drop it. The call was terminated after a timeout (30 seconds).|
+|**32**|error|An error occurred while making the call. The error description is indicated in the field `last_error`.|
 
-Статусы **1, 2** означают что звонок находится в обработке, они могут измениться в будущем. Остальные статусы - финальные, при получении финального статуса можно больше не опрашивать `call-status` - статус не изменится. В биллинге в поле `consumed` учитываются только звонки со статусом **4, 8, 16**. Если звонок завершился ошибкой - статус **32** - можно попробовать повторить звонок по стечении таймаута повторным вызовом функции `call`.
+Statuses ** 1, 2 ** mean that the call is in processing, they may change in the future. The remaining statuses are final. When you receive the final status, you can no longer call the `call-status` method because the status will not change.
 
-##### Примеры запроса
+##### Request examples
 ```
-http://internal.loginbycall.net/callapi/v2.0/call-status?call=jRM3p2wyboEgw3yeeDRiZ3pAjlVVWSz7rZLq8m1W&call-api-id=kJpDl7YnbX35Q2Nwd7OFm72pNgnQVSWm0z2dMwgm&timestamp=1493503608&nonce=xTDvsXd9lNx5ZYEbp5EFTlPnmho%3D&signature=d3b557f97b3773b7a74504145bd5306cd76dab66f2561d8bae5ad6fd467c6db31b220cccddc00fbcfe8fbecc2520d8ea8d92a0456f58de4efd6b8e22d61276a8
+https://internal.loginbycall.net/callapi/v2.0/call-status?call=jRM3p2wyboEgw3yeeDRiZ3pAjlVVWSz7rZLq8m1W&call-api-id=kJpDl7YnbX35Q2Nwd7OFm72pNgnQVSWm0z2dMwgm&timestamp=1493503608&nonce=xTDvsXd9lNx5ZYEbp5EFTlPnmho%3D&signature=d3b557f97b3773b7a74504145bd5306cd76dab66f2561d8bae5ad6fd467c6db31b220cccddc00fbcfe8fbecc2520d8ea8d92a0456f58de4efd6b8e22d61276a8
 ```
 
-##### Примеры ответа
+##### Response examples
 ```
 {"status":2,"status_desc":"dialing","last_error":null}
-{"status":32,"status_desc":"error","last_error":"Вызов отклонен, попробуйте еще раз"}
+{"status":32,"status_desc":"error","last_error":"Call rejected, try again"}
 ```
 
-### Завершить звонок `call-hangup`
+### End the call `call-hangup`
 
-Метод требует цифровую подпись. Порядок параметров для подписи: `call-api-id, timestamp, nonce, call`.
+The method requires a digital signature. The order of the parameters for the signature: `call-api-id, timestamp, nonce, call`.
 
-##### Параметры запроса
-- `call` - идентификатор звонка.
+##### Query Parameters
+- `call` - call identifier.
 
-##### Параметры ответа
-- В случае успеха метод возвращает пустой ответ.
+##### Response parameters
+- If successful, the method returns an empty response.
 
-Метод завершает вызов со статусом **2** - dialing. Если у авторизуемого пользователя звонит телефон - сервер разрывает соединение и вызов сбрасывается. Вызов метода может понадобиться в том случае, если во время вызова авторизуемый пользователь вводит 4 цифры пароля, не отвечая на вызов и не сбрасывая вызова. В этом случае больше нет нужды звонить авторизуемому пользователю и вызов можно завершить. 
+The method terminates the current call to the user (the user must have an active call with the status ** 2 ** - dialing). When an authorized user receives a call from LoginByCall (the user’s phone is ringing), this method causes the connection to be broken and the call is reset. You may need to call the method if the user does not answer and does not reject the incoming call from LoginByCall, but immediately enters 4 digits of the password in the form of authorization. In this case, there is no longer any need to call the authorized user and the call can be terminated using this method. Even if the user does not respond to the call, the LoginByCall service will terminate the call itself by timeout (30 seconds).
 
-## Обработка ошибок
+## Error processing
 
-В случае ошибки сервер возвращает следующие аргументы:
-- `clazz` класс ошибки. Может отсутствовать.
-- `error` код ошибки. Внимание! Сервер может вернуть код ошибки, не перечисленный в данном документе. Например в случае неожиданных ошибок код ошибки будет `Error`. В случае возникновения ошибки код ошибки будет обязательно присутствовать в ответе.
-- `reason` - текст ошибки. Может быть пустым.
-- `stack` - стек ошибки. Нужен для отладки непредвиденных ошибок. Позже передача стека может быть отключена.
-- `additional` - объект - дополнительные данные ошибки. Некоторые ошибки могут включать дополнительные параметры для более точной обработки. Для остальных ошибок данный параметр не передается.
+In case of an error, LoginByCall returns the following arguments:
+- `clazz` Error class. Can be empty.
+- `error` error code. Attention! Service LoginByCall can return an error code not listed in this document. For example, in case of unexpected errors, the error code is `Error`. If an error occurs, the error code will be present in the response.
+- `reason` - The text of the error. Can be empty.
+- `stack` - error stack. It is needed to debug unexpected errors.
+- `additional` - additional error information. Some errors may include additional parameters for more accurate processing. For other errors, this parameter is not transmitted.
 
-##### Коды ошибок
+##### Error codes
 
-|Код ошибки|Описание ошибки|
+|Error code|Description|
 |----------|---------------|
-||**Класс `GENERIC` - общие ошибки**|
-|UNEXPECTED|Неизвестная ошибка.|
-|INVALID_ARGS|В функцию переданы неправильные аргументы.|
-|NO_SIGNATURE|Не найдена подпись.|
-|INVALID_SIGNATURE|Неправильная подпись.|
-||**Класс `PROCESS` - ошибки обработки запросов**|
-|INVALID_TIMESTAMP|`timestamp` переданный в функцию отличается от текущего времени больше чем на 24 часа.|
-|NONCE_ALREADY_USED|`nonce` уже использовалось.|
-|INVALID_ACCOUNT|Неизвестный идентификатор пользователя.|
-|ACCOUNT_BLOCKED|Пользователь заблокирован.|
-|NOT_ENOUGH_CREDIT|Пополните баланс.|
-|CALL_NOT_FOUND|Вызов не найден.|
-|CALL_REPEAT_TIMEOUT|Можно перезвонить через несколько секунд. В поле `additional` содержится объект с числом секунд, например `"additional":{"delay":23.563}`.|
-|ACCOUNT_ALREADY_REGISTERED|Домен уже зарегистрирован.|
-|ACCOUNT_VERIFY_URL_PROTOCOL|Для проверки домена используется неправильный протокол. Разрешены только http или https.|
-|ACCOUNT_VERIFY_URL_DOMAIN|Для проверки используется другой домен. Адрес для проверки домена должен находиться на том-же домене.|
+||**Класс `GENERIC` - Common mistakes**|
+|UNEXPECTED|Unknown error.|
+|INVALID_ARGS|Wrong arguments sent to the function.|
+|NO_SIGNATURE|No digital signature found.|
+|INVALID_SIGNATURE|Invalid digital signature.|
+||**The class `PROCESS` - errors of processing requests**|
+|INVALID_TIMESTAMP|`timestamp` is different from the current time for more than 24 hours.|
+|NONCE_ALREADY_USED|`nonce` has already been used.|
+|INVALID_ACCOUNT|Unknown customer ID.|
+|ACCOUNT_BLOCKED|Customer account suspended.|
+|NOT_ENOUGH_CREDIT|Refill your balance.|
+|CALL_NOT_FOUND|Call is not found.|
+|CALL_REPEAT_TIMEOUT|You can call back in a few seconds. The `additional` field contains an object with the number of seconds, for example `"additional":{"delay":23.563}`.|
+|ACCOUNT_ALREADY_REGISTERED|Domain already registered in LoginByCall service.|
+|ACCOUNT_VERIFY_URL_PROTOCOL|You are useing the wrong protocol to verify the domain. Only http or https are allowed.|
+|ACCOUNT_VERIFY_URL_DOMAIN|You are using a different domain. The domain verification address must be in the same domain.|
 
-##### Примеры
+##### Examples of an error response
 ```json
 {
 "clazz":"PROCESS",
 "error":"CALL_REPEAT_TIMEOUT",
-"reason":"Можно перезвонить через 24 секунд",
-"stack":"CALL_REPEAT_TIMEOUT\nError: Можно перезвонить через 24 секунд\n    at Function.ErrObject (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\err.js:9:17)\n    at Function.ErrObject.withAdditional (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\err.js:81:27)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\originator.js:158:33\n    at Function.<anonymous> (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\db.js:370:20)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\node_modules\\synchronize\\sync.js:273:21",
+"reason":"You can call back in 24 seconds",
+"stack":"CALL_REPEAT_TIMEOUT\nError: You can call back in 24 seconds\n    at Function.ErrObject (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\err.js:9:17)\n    at Function.ErrObject.withAdditional (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\err.js:81:27)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\originator.js:158:33\n    at Function.<anonymous> (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\db.js:370:20)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\node_modules\\synchronize\\sync.js:273:21",
 "additional":{"delay":23.563}
 }
 
 {
 "clazz":"PROCESS",
 "error":"ACCOUNT_ALREADY_REGISTERED",
-"reason":"Домен уже зарегистрирован",
-"stack":"ACCOUNT_ALREADY_REGISTERED\nError: Домен уже зарегистрирован\n    at ErrObject (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\err.js:9:17)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\methods\\lbc_api.js:228:23\n    at Function.<anonymous> (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\db.js:370:20)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\node_modules\\synchronize\\sync.js:273:21"
+"reason":"This domain is already registered",
+"stack":"ACCOUNT_ALREADY_REGISTERED\nError: This domain is already registered\n    at ErrObject (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\err.js:9:17)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\methods\\lbc_api.js:228:23\n    at Function.<anonymous> (m:\\Projects\\__Logi\\LoginByCall\\server\\lib\\db.js:370:20)\n    at m:\\Projects\\__Logi\\LoginByCall\\server\\node_modules\\synchronize\\sync.js:273:21"
 }
 ```
-=======
-# LoginByCall_workpiece
-#Table of Contents
-* Demo and examples
-* Features
-* Browser Compatibility
-* Getting Started
-* Recommended Usage
-* Options
-* Public Methods
-* Static Methods
-* Events
-* Utilities Script
-* Troubleshooting
-* Contributing
-* Attributions
-
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
