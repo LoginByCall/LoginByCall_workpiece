@@ -319,7 +319,7 @@ https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/change_credential?admin_email=admin@example.com&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://internal.loginbycall.net/callapi/v2.0/change_credential?call-api-id=EeaBxJlPvdARz9RBpRLSn9gJo3oeMinkrA1G2Xm8&admin_email=admin@example.com&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Примеры ответа
@@ -345,7 +345,7 @@ https://internal.loginbycall.net/callapi/v2.0/change_credential?admin_email=admi
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/credential_confirm?timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://internal.loginbycall.net/callapi/v2.0/credential_confirm?call-api-id=EeaBxJlPvdARz9RBpRLSn9gJo3oeMinkrA1G2Xm8&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ### Статус пользователя `status`
