@@ -95,11 +95,11 @@
 * методы для авторизации пользователей на сайте Клиента (совершения звонков).
 
 Все методы вызываются посредством универсального протокола. Некоторые методы требуют наличия цифровой подписи.
-API находится по адресу: [https://internal.loginbycall.net/callapi/v2.0/](https://internal.loginbycall.net/callapi/v2.0/)
+API находится по адресу: [https://api.loginbycall.ru/callapi/v2.0/](https://api.loginbycall.ru/callapi/v2.0/)
 
 ## Универсальный протокол
 
-Все методы вызываются по URL `https://internal.loginbycall.net/callapi/v2.0/<имя метода>`, например `https://internal.loginbycall.net/callapi/v2.0/register`. Порядок следования параметров неважен.
+Все методы вызываются по URL `https://api.loginbycall.ru/callapi/v2.0/<имя метода>`, например `https://api.loginbycall.ru/callapi/v2.0/register`. Порядок следования параметров неважен.
 Методы API можно вызывать любым из нескольких способов. Способы перечислены ниже.
 
 ### HTTP GET с параметрами
@@ -107,7 +107,7 @@ API находится по адресу: [https://internal.loginbycall.net/call
 Передача параметров производится внутри URL query string запросом HTTP GET.
 ```
 GET /callapi/v2.0/call?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&msisdn=70000000000 HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 ```
 
 ### HTTP POST формы
@@ -115,7 +115,7 @@ Host: internal.loginbycall.net
 Передача параметров производится HTTP POST формы (кодировка application/x-www-form-urlencoded).
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 71
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 
@@ -127,7 +127,7 @@ call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&msisdn=70000000000
 Передача параметров производится адресом внутри URL.
 ```
 GET /callapi/v2.0/call/call-api-id/npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6/msisdn/70000000000 HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 ```
 
 ### HTTP POST multipart
@@ -135,7 +135,7 @@ Host: internal.loginbycall.net
 Передача параметров производится HTTP POST формы (кодировка multipart/form-data).
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 110
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryP7bZDAwOQaxMGJ95
 
@@ -157,12 +157,12 @@ Content-Disposition: form-data; name="msisdn"
 
 ```
 GET /callapi/v2.0/call?params=%7B%22call-api-id%22:%22npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6%22,%22msisdn%22:%2270000000000%22%7D HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 ```
 
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 71
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 
@@ -171,7 +171,7 @@ params=%7B%22call-api-id%22:%22npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6%22,%22ms
 
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 110
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryP7bZDAwOQaxMGJ95
 
@@ -356,9 +356,9 @@ Vary: Accept-Encoding
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com&verify_url=http://example.com/lbc_verify.html&balance_notify_limit=5000
+https://api.loginbycall.ru/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com&verify_url=http://example.com/lbc_verify.html&balance_notify_limit=5000
 
-https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com
+https://api.loginbycall.ru/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com
 ```
 
 ##### Примеры ответа
@@ -385,7 +385,7 @@ https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/change_credential?call-api-id=EeaBxJlPvdARz9RBpRLSn9gJo3oeMinkrA1G2Xm8&admin_email=admin@example.com&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/change_credential?call-api-id=EeaBxJlPvdARz9RBpRLSn9gJo3oeMinkrA1G2Xm8&admin_email=admin@example.com&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Примеры ответа
@@ -411,7 +411,7 @@ https://internal.loginbycall.net/callapi/v2.0/change_credential?call-api-id=EeaB
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/credential_confirm?call-api-id=EeaBxJlPvdARz9RBpRLSn9gJo3oeMinkrA1G2Xm8&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/credential_confirm?call-api-id=EeaBxJlPvdARz9RBpRLSn9gJo3oeMinkrA1G2Xm8&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ### Статус пользователя `status`
@@ -428,7 +428,7 @@ https://internal.loginbycall.net/callapi/v2.0/credential_confirm?call-api-id=Eea
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/status?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk
+https://api.loginbycall.ru/callapi/v2.0/status?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk
 ```
 
 ##### Примеры ответа
@@ -450,7 +450,7 @@ https://internal.loginbycall.net/callapi/v2.0/status?call-api-id=zpPOnM7XbZOPnLW
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/server-status
+https://api.loginbycall.ru/callapi/v2.0/server-status
 ```
 
 ##### Примеры ответа
@@ -470,7 +470,7 @@ https://internal.loginbycall.net/callapi/v2.0/server-status
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/options?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&balance_notify_limit=-1&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/options?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&balance_notify_limit=-1&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ### Баланс клиента `balance`
@@ -490,7 +490,7 @@ https://internal.loginbycall.net/callapi/v2.0/options?call-api-id=zpPOnM7XbZOPnL
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/balance?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/balance?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Примеры ответа
@@ -522,7 +522,7 @@ https://internal.loginbycall.net/callapi/v2.0/balance?call-api-id=zpPOnM7XbZOPnL
 
 ##### Примеры запроса (сумма 6 USD)
 ```
-https://internal.loginbycall.net/callapi/v2.0/pay?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&amount=60000&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/pay?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&amount=60000&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Примеры ответа
@@ -553,7 +553,7 @@ https://internal.loginbycall.net/callapi/v2.0/pay?call-api-id=npK5AJe407KnZnn9kq
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/call?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&msisdn=70000000000&ip_address=80.80.88.88&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/call?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&msisdn=70000000000&ip_address=80.80.88.88&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Примеры ответа
@@ -587,7 +587,7 @@ https://internal.loginbycall.net/callapi/v2.0/call?call-api-id=zpPOnM7XbZOPnLWVa
 
 ##### Примеры запроса
 ```
-https://internal.loginbycall.net/callapi/v2.0/call-status?call=jRM3p2wyboEgw3yeeDRiZ3pAjlVVWSz7rZLq8m1W&call-api-id=kJpDl7YnbX35Q2Nwd7OFm72pNgnQVSWm0z2dMwgm&timestamp=1493503608&nonce=xTDvsXd9lNx5ZYEbp5EFTlPnmho%3D&signature=d3b557f97b3773b7a74504145bd5306cd76dab66f2561d8bae5ad6fd467c6db31b220cccddc00fbcfe8fbecc2520d8ea8d92a0456f58de4efd6b8e22d61276a8
+https://api.loginbycall.ru/callapi/v2.0/call-status?call=jRM3p2wyboEgw3yeeDRiZ3pAjlVVWSz7rZLq8m1W&call-api-id=kJpDl7YnbX35Q2Nwd7OFm72pNgnQVSWm0z2dMwgm&timestamp=1493503608&nonce=xTDvsXd9lNx5ZYEbp5EFTlPnmho%3D&signature=d3b557f97b3773b7a74504145bd5306cd76dab66f2561d8bae5ad6fd467c6db31b220cccddc00fbcfe8fbecc2520d8ea8d92a0456f58de4efd6b8e22d61276a8
 ```
 
 ##### Примеры ответа
