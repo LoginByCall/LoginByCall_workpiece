@@ -1,6 +1,6 @@
 ﻿# LoginByCall - easy sign in & sign up service
 
-##### [Russian](https://github.com/LoginByCall/LoginByCall_workpiece/blob/master/README2.md)
+##### [Русская версия](https://github.com/LoginByCall/LoginByCall_workpiece/blob/master/README2.md)
 
 ## About LoginByCall
 * `EASY`: LoginByCall service allows you safely and simply sign up and sign in users of your website.
