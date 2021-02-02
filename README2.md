@@ -1,6 +1,6 @@
 # Авторизация LoginByCall
 
-##### [English version](../blob/master/README.md)
+##### [English version](https://github.com/LoginByCall/LoginByCall_workpiece/blob/master/README.md)
 
 ## Содержание
 
