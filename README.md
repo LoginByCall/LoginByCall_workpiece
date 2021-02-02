@@ -1,6 +1,6 @@
 ﻿# LoginByCall - easy sign in & sign up service
 
-##### Russian: https://github.com/LoginByCall/LoginByCall_workpiece/blob/master/README2.md
+##### [Russian](https://github.com/LoginByCall/LoginByCall_workpiece/blob/master/README2.md)
 
 ## About LoginByCall
 * `EASY`: LoginByCall service allows you safely and simply sign up and sign in users of your website.
@@ -29,11 +29,11 @@ but not the only way to authenticate users.
 * methods for signing in / signing up users on the Client's site (making calls).
 
 All methods are called by means of a universal protocol. Some methods require a digital signature.
-API address: [https://internal.loginbycall.net/callapi/v2.0/](https://internal.loginbycall.net/callapi/v2.0/)
+API address: [https://api.loginbycall.ru/callapi/v2.0/](https://api.loginbycall.ru/callapi/v2.0/)
 
 ## Universal protocol
 
-All methods are called by URL `https://internal.loginbycall.net/callapi/v2.0/<method name>`, e.g. `https://internal.loginbycall.net/callapi/v2.0/register`. The sequence of parameters does not matter.
+All methods are called by URL `https://api.loginbycall.ru/callapi/v2.0/<method name>`, e.g. `https://api.loginbycall.ru/callapi/v2.0/register`. The sequence of parameters does not matter.
 You can call API methods by different ways. The methods are listed below.
 
 ### HTTP GET with parameters
@@ -41,7 +41,7 @@ You can call API methods by different ways. The methods are listed below.
 Parameters are passed in the URL query string by an HTTP GET request.
 ```
 GET /callapi/v2.0/call?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&msisdn=70000000000 HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 ```
 
 ### HTTP POST forms
@@ -49,7 +49,7 @@ Host: internal.loginbycall.net
 Parameters are passed to the HTTP POST form (application/x-www-form-urlencoded encoding).
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 71
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 
@@ -61,7 +61,7 @@ call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&msisdn=70000000000
 Parameters are passed by the address inside the URL.
 ```
 GET /callapi/v2.0/call/call-api-id/npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6/msisdn/70000000000 HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 ```
 
 ### HTTP POST multipart
@@ -69,7 +69,7 @@ Host: internal.loginbycall.net
 Parameters are passed to the HTTP POST form (multipart/form-data encoding).
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 110
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryP7bZDAwOQaxMGJ95
 
@@ -91,12 +91,12 @@ Examples:
 
 ```
 GET /callapi/v2.0/call?params=%7B%22call-api-id%22:%22npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6%22,%22msisdn%22:%2270000000000%22%7D HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 ```
 
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 71
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 
@@ -105,7 +105,7 @@ params=%7B%22call-api-id%22:%22npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6%22,%22ms
 
 ```
 POST /callapi/v2.0/call HTTP/1.1
-Host: internal.loginbycall.net
+Host: api.loginbycall.ru
 Content-Length: 110
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryP7bZDAwOQaxMGJ95
 
@@ -237,9 +237,9 @@ The new LoginByCall client's account is registered with the status "inactive". A
 
 ##### Request examples
 ```
-https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com&verify_url=http://example.com/lbc_verify.html&balance_notify_limit=5000
+https://api.loginbycall.ru/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com&verify_url=http://example.com/lbc_verify.html&balance_notify_limit=5000
 
-https://internal.loginbycall.net/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com
+https://api.loginbycall.ru/callapi/v2.0/register?domain=example.com&admin_email=admin@example.com
 ```
 
 ##### Response examples
@@ -263,7 +263,7 @@ The method does not require a digital signature.
 
 ##### Request examples
 ```
-https://internal.loginbycall.net/callapi/v2.0/status?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk
+https://api.loginbycall.ru/callapi/v2.0/status?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk
 ```
 
 ##### Response examples
@@ -283,7 +283,7 @@ The method requires a digital signature. The order of the parameters for the sig
 
 ##### Request examples
 ```
-https://internal.loginbycall.net/callapi/v2.0/options?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&balance_notify_limit=-1&&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/options?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&balance_notify_limit=-1&&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ### Balance of the client `balance`
@@ -303,7 +303,7 @@ The balance of the customer is the amount of payments subtract the amount of exp
 
 ##### Request examples
 ```
-https://internal.loginbycall.net/callapi/v2.0/balance?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/balance?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Response examples
@@ -337,7 +337,7 @@ Optional parameters `success_url, fail_url, return_url` may not be supported by 
 
 ##### Request examples (Amount 5 USD)
 ```
-https://internal.loginbycall.net/callapi/v2.0/pay?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&amount=50000&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/pay?call-api-id=npK5AJe407KnZnn9kqYIL9dMJP7WZIpP01kwNjP6&amount=50000&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Response examples
@@ -390,7 +390,7 @@ Until the expiration of the time `repeat_timeout`, all repeated requests` call` 
 
 ##### Request examples
 ```
-https://internal.loginbycall.net/callapi/v2.0/call?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&msisdn=70000000000&ip_address=80.80.88.88&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
+https://api.loginbycall.ru/callapi/v2.0/call?call-api-id=zpPOnM7XbZOPnLWVaPAfoMAA6yy2YTpXv6demwBk&msisdn=70000000000&ip_address=80.80.88.88&timestamp=1492799685&nonce=p2P6YLWPk4wOfqKXwBjkXGyO33k&signature=ef716a4a32a45259147554dbb8ab1abb4a0ca3ec76e3c20964113045644a7563b48b32a86580b9f4e8f7f61cb1e16edbc0c22cf9b89446362301cdf298899779
 ```
 
 ##### Response examples
@@ -424,7 +424,7 @@ Statuses ** 1, 2 ** mean that the call is in processing, they may change in the 
 
 ##### Request examples
 ```
-https://internal.loginbycall.net/callapi/v2.0/call-status?call=jRM3p2wyboEgw3yeeDRiZ3pAjlVVWSz7rZLq8m1W&call-api-id=kJpDl7YnbX35Q2Nwd7OFm72pNgnQVSWm0z2dMwgm&timestamp=1493503608&nonce=xTDvsXd9lNx5ZYEbp5EFTlPnmho%3D&signature=d3b557f97b3773b7a74504145bd5306cd76dab66f2561d8bae5ad6fd467c6db31b220cccddc00fbcfe8fbecc2520d8ea8d92a0456f58de4efd6b8e22d61276a8
+https://api.loginbycall.ru/callapi/v2.0/call-status?call=jRM3p2wyboEgw3yeeDRiZ3pAjlVVWSz7rZLq8m1W&call-api-id=kJpDl7YnbX35Q2Nwd7OFm72pNgnQVSWm0z2dMwgm&timestamp=1493503608&nonce=xTDvsXd9lNx5ZYEbp5EFTlPnmho%3D&signature=d3b557f97b3773b7a74504145bd5306cd76dab66f2561d8bae5ad6fd467c6db31b220cccddc00fbcfe8fbecc2520d8ea8d92a0456f58de4efd6b8e22d61276a8
 ```
 
 ##### Response examples
